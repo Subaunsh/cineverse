@@ -1,16 +1,14 @@
-import { Header } from '@/components/layout/header';
-import { HeroSection } from '@/components/hero-section';
 import { MovieCarousel } from '@/components/movie-carousel';
 import { getMoviesByGenre } from '@/lib/movies';
 import { Separator } from '@/components/ui/separator';
 import { getTrendingMovies as getAITrendingMovies } from '@/ai/flows/get-trending-movies';
 import { allMovies } from '@/lib/movies';
+import { SearchDialog } from '@/components/search-dialog';
+import { UserNav } from '@/components/user-nav';
 
 export default async function Home() {
   const trendingMoviesResult = await getAITrendingMovies();
   const trendingMovies = trendingMoviesResult.movies || allMovies.slice(0, 10);
-  
-  const heroMovie = trendingMovies.length > 0 ? trendingMovies[0] : allMovies[0];
   
   const actionMovies = getMoviesByGenre('Action', 10);
   const comedyMovies = getMoviesByGenre('Comedy', 10);
@@ -18,16 +16,19 @@ export default async function Home() {
   const horrorMovies = getMoviesByGenre('Horror', 10);
   const dramaMovies = getMoviesByGenre('Drama', 10);
 
-  // Filter out the hero movie from the trending list for the carousel
-  const trendingCarouselMovies = trendingMovies.filter(movie => movie.id !== heroMovie.id);
-
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      <Header />
+      <header className="sticky top-0 z-50 w-full">
+        <div className="container flex h-20 max-w-screen-2xl items-center justify-end">
+          <div className="flex flex-1 items-center justify-end space-x-2 sm:space-x-4">
+            <SearchDialog />
+            <UserNav />
+          </div>
+        </div>
+      </header>
       <main className="flex-1">
-        <HeroSection movie={heroMovie} />
         <div className="container pb-20 mt-8 md:mt-12 space-y-16">
-          {trendingCarouselMovies.length > 0 && <MovieCarousel title="Trending Now" movies={trendingCarouselMovies} />}
+          {trendingMovies.length > 0 && <MovieCarousel title="Trending Now" movies={trendingMovies} />}
           <MovieCarousel title="Action & Adventure" movies={actionMovies} />
           <MovieCarousel title="Sci-Fi Thrillers" movies={scifiMovies} />
           <MovieCarousel title="Comedies" movies={comedyMovies} />

@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { PlayCircle, Info } from 'lucide-react';
 import type { Movie } from '@/lib/types';
@@ -13,19 +12,7 @@ export function HeroSection({ movie }: HeroSectionProps) {
   if (!movie) return null;
   
   return (
-    <div className="relative h-[85vh] w-full">
-      <div className="absolute inset-0">
-        <Image
-          src={movie.posterUrl}
-          alt={`Poster for ${movie.title}`}
-          fill
-          className="object-cover opacity-30"
-          data-ai-hint={movie.id}
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
-      </div>
-
+    <div className="relative w-full">
       <div className="relative z-10 container h-full flex items-center">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-center">
           <div className="md:col-span-2 space-y-6">
@@ -50,16 +37,6 @@ export function HeroSection({ movie }: HeroSectionProps) {
                 More Info
               </Button>
             </div>
-          </div>
-          <div className="hidden md:flex justify-center">
-             <div className="relative w-full max-w-xs aspect-[2/3] rounded-2xl overflow-hidden shadow-2xl shadow-primary/20">
-                <Image
-                    src={movie.posterUrl}
-                    alt={movie.title}
-                    fill
-                    className="object-cover"
-                />
-             </div>
           </div>
         </div>
       </div>
