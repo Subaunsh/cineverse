@@ -1,11 +1,13 @@
 import { Header } from '@/components/layout/header';
 import { HeroSection } from '@/components/hero-section';
 import { MovieCarousel } from '@/components/movie-carousel';
-import { allMovies, getMoviesByGenre, getTrendingMovies } from '@/lib/movies';
+import { allMovies, getMoviesByGenre } from '@/lib/movies';
 import { Separator } from '@/components/ui/separator';
+import { getTrendingMovies as getAITrendingMovies } from '@/ai/flows/get-trending-movies';
 
-export default function Home() {
-  const trendingMovies = getTrendingMovies(10);
+export default async function Home() {
+  const trendingMoviesResult = await getAITrendingMovies();
+  const trendingMovies = trendingMoviesResult.movies;
   const heroMovie = trendingMovies[0];
   const actionMovies = getMoviesByGenre('Action', 10);
   const comedyMovies = getMoviesByGenre('Comedy', 10);
