@@ -1,3 +1,79 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "inception",
+      "imageUrl": "https://images.unsplash.com/photo-1536440136628-849c177e76a1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bW92aWUlMjBwb3N0ZXJ8ZW58MHx8fHwxNzU5NDQwOTgxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "movie poster"
+    },
+    {
+      "id": "the-dark-knight",
+      "imageUrl": "https://images.unsplash.com/photo-1623375428145-4d276c83ce5e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtb3ZpZSUyMHBvc3RlcnxlbnwwfHx8fDE3NTk0NDA5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "movie poster"
+    },
+    {
+      "id": "interstellar",
+      "imageUrl": "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtb3ZpZSUyMHBvc3RlcnxlbnwwfHx8fDE3NTk0NDA5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "movie poster"
+    },
+    {
+      "id": "parasite",
+      "imageUrl": "https://images.unsplash.com/photo-1616530940355-351fabd9524b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtb3ZpZSUyMHBvc3RlcnxlbnwwfHx8fDE3NTk0NDA5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "movie poster"
+    },
+    {
+      "id": "the-matrix",
+      "imageUrl": "https://images.unsplash.com/photo-1635805737707-575885ab0820?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtb3ZpZSUyMHBvc3RlcnxlbnwwfHx8fDE3NTk0NDA5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "movie poster"
+    },
+    {
+      "id": "joker",
+      "imageUrl": "https://images.unsplash.com/photo-1635805737707-575885ab0820?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtb3ZpZSUyMHBvc3RlcnxlbnwwfHx8fDE3NTk0NDA5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "movie poster"
+    },
+    {
+      "id": "avengers-endgame",
+      "imageUrl": "https://images.unsplash.com/photo-1702635429447-06e9ee0c617c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtb3ZpZSUyMHBvc3RlcnxlbnwwfHx8fDE3NTk0NDA5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "movie poster"
+    },
+    {
+      "id": "blade-runner-2049",
+      "imageUrl": "https://images.unsplash.com/photo-1590179068383-b9c69aacebd3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtb3ZpZSUyMHBvc3RlcnxlbnwwfHx8fDE3NTk0NDA5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "movie poster"
+    },
+    {
+      "id": "mad-max-fury-road",
+      "imageUrl": "https://images.unsplash.com/photo-1623375428145-4d276c83ce5e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtb3ZpZSUyMHBvc3RlcnxlbnwwfHx8fDE3NTk0NDA5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "movie poster"
+    },
+    {
+      "id": "pulp-fiction",
+      "imageUrl": "https://images.unsplash.com/photo-1611419010196-a360856fc42f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtb3ZpZSUyMHBvc3RlcnxlbnwwfHx8fDE3NTk0NDA5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "movie poster"
+    },
+    {
+      "id": "the-grand-budapest-hotel",
+      "imageUrl": "https://images.unsplash.com/photo-1702635429447-06e9ee0c617c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtb3ZpZSUyMHBvc3RlcnxlbnwwfHx8fDE3NTk0NDA5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "movie poster"
+    },
+    {
+      "id": "spider-man-into-the-spider-verse",
+      "imageUrl": "https://images.unsplash.com/photo-1635805737707-575885ab0820?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtb3ZpZSUyMHBvc3RlcnxlbnwwfHx8fDE3NTk0NDA5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "movie poster"
+    },
+    {
+      "id": "arrival",
+      "imageUrl": "https://images.unsplash.com/photo-1702635429447-06e9ee0c617c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtb3ZpZSUyMHBvc3RlcnxlbnwwfHx8fDE3NTk0NDA5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "movie poster"
+    },
+    {
+      "id": "la-la-land",
+      "imageUrl": "https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtb3ZpZSUyMHBvc3RlcnxlbnwwfHx8fDE3NTk0NDA5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "movie poster"
+    },
+    {
+      "id": "get-out",
+      "imageUrl": "https://images.unsplash.com/photo-1635805737707-575885ab0820?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtb3ZpZSUyMHBvc3RlcnxlbnwwfHx8fDE3NTk0NDA5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "movie poster"
+    }
+  ]
 }
