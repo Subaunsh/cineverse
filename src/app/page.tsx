@@ -22,11 +22,11 @@ export default async function Home() {
   const trendingCarouselMovies = trendingMovies.filter(movie => movie.id !== heroMovie.id);
 
   return (
-    <div className="flex flex-col min-h-screen bg-black">
+    <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main className="flex-1">
         <HeroSection movie={heroMovie} />
-        <div className="container pb-20 -mt-24 md:-mt-40 relative z-10 space-y-12">
+        <div className="container pb-20 mt-8 md:mt-12 space-y-16">
           {trendingCarouselMovies.length > 0 && <MovieCarousel title="Trending Now" movies={trendingCarouselMovies} />}
           <MovieCarousel title="Action & Adventure" movies={actionMovies} />
           <MovieCarousel title="Sci-Fi Thrillers" movies={scifiMovies} />
@@ -37,9 +37,9 @@ export default async function Home() {
       </main>
       <footer className="container py-8">
         <div className="flex justify-center items-center">
-            <Separator className="bg-gray-800" />
+            <Separator className="bg-border" />
         </div>
-        <p className="text-center text-sm text-gray-500 mt-8">
+        <p className="text-center text-sm text-muted-foreground mt-8">
             CineVerse &copy; {new Date().getFullYear()}. All Rights Reserved.
         </p>
       </footer>
