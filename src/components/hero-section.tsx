@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { PlayCircle, PlusCircle } from 'lucide-react';
+import { PlayCircle, PlusCircle, Info } from 'lucide-react';
 import type { Movie } from '@/lib/types';
 import { Badge } from './ui/badge';
 import { cn } from '@/lib/utils';
@@ -10,8 +10,10 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ movie }: HeroSectionProps) {
+  if (!movie) return null;
+  
   return (
-    <div className="relative h-[80vh] w-full">
+    <div className="relative h-[90vh] w-full">
       <div className="absolute inset-0">
         <Image
           src={movie.posterUrl}
@@ -21,30 +23,30 @@ export function HeroSection({ movie }: HeroSectionProps) {
           data-ai-hint={movie.id}
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/20 to-transparent" />
       </div>
 
-      <div className="relative z-10 container h-full flex flex-col justify-end pb-20 md:pb-24 space-y-6 max-w-2xl">
-        <h1 className={cn('font-headline text-4xl md:text-6xl font-bold text-white drop-shadow-lg')}>
+      <div className="relative z-10 container h-full flex flex-col justify-center space-y-6 max-w-3xl">
+        <h1 className={cn('font-headline text-5xl md:text-7xl font-bold text-white drop-shadow-2xl')}>
           {movie.title}
         </h1>
         <div className="flex items-center gap-4">
-            <Badge variant="outline" className="text-white">{movie.year}</Badge>
-            <Badge variant="outline" className="text-white">{movie.genre}</Badge>
-            <Badge variant="outline" className="text-white">Rating: {movie.rating}</Badge>
+            <Badge variant="secondary" className="text-white bg-white/20 backdrop-blur-sm">{movie.year}</Badge>
+            <Badge variant="secondary" className="text-white bg-white/20 backdrop-blur-sm">{movie.genre}</Badge>
+            <Badge variant="secondary" className="text-white bg-white/20 backdrop-blur-sm">Rating: {movie.rating}/10</Badge>
         </div>
-        <p className="text-base md:text-lg text-white/80 drop-shadow-md line-clamp-3">
+        <p className="text-lg md:text-xl text-white/80 drop-shadow-lg line-clamp-3">
           {movie.description}
         </p>
-        <div className="flex items-center space-x-4">
-          <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-            <PlayCircle className="mr-2 h-6 w-6" />
+        <div className="flex items-center space-x-4 pt-4">
+          <Button size="lg" className="bg-white hover:bg-white/90 text-black font-bold text-lg">
+            <PlayCircle className="mr-2 h-7 w-7" />
             Play
           </Button>
-          <Button size="lg" variant="secondary">
-            <PlusCircle className="mr-2 h-6 w-6" />
-            My List
+          <Button size="lg" variant="outline" className="bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur-sm font-bold text-lg">
+            <Info className="mr-2 h-7 w-7" />
+            More Info
           </Button>
         </div>
       </div>

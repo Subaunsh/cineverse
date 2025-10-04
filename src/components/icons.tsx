@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 export const Icons = {
   logo: ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     <span
-      className={cn("font-headline text-2xl font-bold text-primary", className)}
+      className={cn("font-headline text-3xl font-bold text-primary", className)}
     >
       CineVerse
     </span>
