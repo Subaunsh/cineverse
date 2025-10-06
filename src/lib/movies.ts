@@ -2,6 +2,7 @@ import { movies as movieData } from '@/lib/data';
 import { PlaceHolderImages } from './placeholder-images';
 import type { Movie } from '@/lib/types';
 
+// In a real app, you might fetch this from an API and use a more robust image solution
 const imageMap = new Map(PlaceHolderImages.map(img => [img.id, img.imageUrl]));
 
 // Combine movie data with poster URLs

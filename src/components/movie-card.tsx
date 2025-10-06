@@ -3,6 +3,7 @@
 import type { Movie } from '@/lib/types';
 import { Card, CardContent, CardFooter } from './ui/card';
 import { Star } from 'lucide-react';
+import Image from 'next/image';
 
 interface MovieCardProps {
   movie: Movie;
@@ -11,8 +12,13 @@ interface MovieCardProps {
 export function MovieCard({ movie }: MovieCardProps) {
   return (
     <Card className="group/card w-full h-full overflow-hidden rounded-xl border-border bg-card transition-all duration-300 ease-in-out hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 flex flex-col">
-      <CardContent className="p-4 flex-grow flex flex-col justify-center">
-        {/* Content can go here if needed */}
+      <CardContent className="p-0 relative aspect-[2/3]">
+        <Image
+          src={movie.posterUrl}
+          alt={movie.title}
+          fill
+          className="object-cover"
+        />
       </CardContent>
       <CardFooter className="p-3 flex-col items-start space-y-1 bg-card/80">
           <h3 className="font-headline text-base font-bold text-foreground truncate w-full">{movie.title}</h3>
