@@ -104,6 +104,56 @@
       "id": "the-mandalorian",
       "imageUrl": "https://images.unsplash.com/photo-1600078686889-8c4241062088?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZWxtZXQlMjB3YXJyaW9yfGVufDB8fHx8MTc2MDM5OTMyNnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "helmet warrior"
+    },
+    {
+      "id": "dune",
+      "imageUrl": "https://images.unsplash.com/photo-1628260411339-28a05389659a?q=80&w=2070&auto=format&fit=crop",
+      "imageHint": "sci fi desert"
+    },
+    {
+      "id": "oppenheimer",
+      "imageUrl": "https://images.unsplash.com/photo-1521102033282-b3524b6f5610?q=80&w=1974&auto=format&fit=crop",
+      "imageHint": "atomic bomb"
+    },
+    {
+      "id": "poor-things",
+      "imageUrl": "https://images.unsplash.com/photo-1503525493921-99540487923b?q=80&w=1964&auto=format&fit=crop",
+      "imageHint": "frankenstein steampunk"
+    },
+    {
+      "id": "anatomy-of-a-fall",
+      "imageUrl": "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2144&auto=format&fit=crop",
+      "imageHint": "courtroom drama"
+    },
+    {
+      "id": "the-holdovers",
+      "imageUrl": "https://images.unsplash.com/photo-1531050244463-559448a43f7a?q=80&w=2070&auto=format&fit=crop",
+      "imageHint": "vintage school"
+    },
+    {
+      "id": "past-lives",
+      "imageUrl": "https://images.unsplash.com/photo-1508249253455-e01889a74735?q=80&w=1974&auto=format&fit=crop",
+      "imageHint": "seoul lovers"
+    },
+    {
+      "id": "zone-of-interest",
+      "imageUrl": "https://images.unsplash.com/photo-1520483582490-32b6b35312a0?q=80&w=1983&auto=format&fit=crop",
+      "imageHint": "german countryside"
+    },
+    {
+      "id": "barbie",
+      "imageUrl": "https://images.unsplash.com/photo-1678846914313-0865a7f20101?q=80&w=1974&auto=format&fit=crop",
+      "imageHint": "pink dreamhouse"
+    },
+    {
+      "id": "killers-of-the-flower-moon",
+      "imageUrl": "https://images.unsplash.com/photo-1554162386-444a57960389?q=80&w=2070&auto=format&fit=crop",
+      "imageHint": "osage nation"
+    },
+    {
+      "id": "maestro",
+      "imageUrl": "https://images.unsplash.com/photo-1598387993441-a364f5514034?q=80&w=1974&auto=format&fit=crop",
+      "imageHint": "orchestra conductor"
     }
   ]
 }
