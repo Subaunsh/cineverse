@@ -1,22 +1,30 @@
 
 import { MovieCarousel } from "@/components/movie-carousel";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { getTrendingMovies, getMoviesByGenre } from "@/lib/movies";
+import { allMovies } from "@/lib/movies";
 import { cn } from "@/lib/utils";
 import { Header } from "@/components/layout/header";
+import { auth } from "@/lib/firebase-server";
+import { redirect } from "next/navigation";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase-server";
+import { getMovieById } from "@/lib/movies";
 
-export default function ProfilePage() {
-    // In a real app, you would fetch the user's actual watchlist and history
-    const userWatchlist = getTrendingMovies(5);
-    const userHistory = getMoviesByGenre('Sci-Fi', 7);
+export default async function ProfilePage() {
+    const user = auth.currentUser;
 
-    // Mock user data
-    const user = {
-        displayName: 'CineVerse User',
-        email: 'user@example.com',
-        photoURL: ''
-    };
-    const userInitial = user.displayName?.charAt(0).toUpperCase();
+    if (!user) {
+        redirect('/login');
+    }
+    
+    const userDocRef = doc(db, "users", user.uid);
+    const userDoc = await getDoc(userDocRef);
+    const watchlistIds = userDoc.exists() ? userDoc.data()?.watchlist || [] : [];
+    
+    const userWatchlist = watchlistIds.map((id: string) => getMovieById(id)).filter(Boolean);
+    const userHistory = allMovies.slice(5, 10); // Mock history
+
+    const userInitial = user.displayName?.charAt(0).toUpperCase() || user.email?.charAt(0).toUpperCase();
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -28,14 +36,21 @@ export default function ProfilePage() {
                             <AvatarFallback className="text-4xl">{userInitial}</AvatarFallback>
                         </Avatar>
                         <div>
-                            <h1 className={cn('font-headline text-4xl font-bold')}>{user.displayName}</h1>
+                            <h1 className={cn('font-headline text-4xl font-bold')}>{user.displayName || 'CineVerse User'}</h1>
                             <p className="text-muted-foreground">{user.email}</p>
                         </div>
                     </div>
 
                     <div className="space-y-12">
-                        <MovieCarousel title="My Watchlist" movies={userWatchlist} />
-                        <MovieCarousel title="Watched History" movies={userHistory} />
+                        {userWatchlist.length > 0 ? (
+                           <MovieCarousel title="My Watchlist" movies={userWatchlist} />
+                        ) : (
+                            <div>
+                                <h2 className={cn('font-headline text-3xl md:text-4xl font-bold mb-6 text-white')}>My Watchlist</h2>
+                                <p className="text-muted-foreground">You haven't added any movies to your watchlist yet.</p>
+                            </div>
+                        )}
+                        <MovieCarousel title="Watched History (Demo)" movies={userHistory} />
                     </div>
                 </div>
             </main>

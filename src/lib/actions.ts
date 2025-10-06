@@ -1,3 +1,4 @@
+
 "use server";
 
 import {
@@ -8,6 +9,9 @@ import {
   voiceSearchForMovies,
   type VoiceSearchForMoviesOutput,
 } from "@/ai/flows/voice-search-for-movies";
+import { doc, updateDoc, arrayUnion, arrayRemove, getDoc, setDoc } from "firebase/firestore";
+import { db } from "./firebase-server";
+import { revalidatePath } from "next/cache";
 
 export async function performNaturalLanguageSearch(
   query: string
@@ -33,25 +37,42 @@ export async function performVoiceSearch(
   }
 }
 
-// In a real application, you would add server actions here to interact with Firestore
-// For example, adding a movie to a user's watchlist:
-/*
-import { auth, db } from "./firebase"; // Assuming server-side firebase admin setup
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
-
-export async function addToWatchlist(userId: string, movieId: string) {
+export async function toggleWatchlist(userId: string, movieId: string) {
   if (!userId) {
     return { error: "User not authenticated." };
   }
   try {
     const userDocRef = doc(db, "users", userId);
-    await updateDoc(userDocRef, {
-      watchlist: arrayUnion(movieId),
-    });
-    return { success: true };
+    const userDoc = await getDoc(userDocRef);
+
+    if (!userDoc.exists()) {
+      // If user document doesn't exist, create it.
+      await setDoc(userDocRef, { watchlist: [movieId] });
+      revalidatePath("/profile");
+      revalidatePath("/movies");
+      return { success: true, added: true };
+    }
+
+    const watchlist = userDoc.data()?.watchlist || [];
+    const isInWatchlist = watchlist.includes(movieId);
+
+    if (isInWatchlist) {
+      await updateDoc(userDocRef, {
+        watchlist: arrayRemove(movieId),
+      });
+      revalidatePath("/profile");
+      revalidatePath("/movies");
+      return { success: true, added: false };
+    } else {
+      await updateDoc(userDocRef, {
+        watchlist: arrayUnion(movieId),
+      });
+      revalidatePath("/profile");
+      revalidatePath("/movies");
+      return { success: true, added: true };
+    }
   } catch (error) {
-    console.error("Error adding to watchlist:", error);
-    return { error: "Failed to add to watchlist." };
+    console.error("Error updating watchlist:", error);
+    return { error: "Failed to update watchlist." };
   }
 }
-*/

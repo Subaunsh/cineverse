@@ -1,3 +1,4 @@
+
 export type Movie = {
   id: string;
   title: string;
@@ -15,7 +16,7 @@ export type TVShow = {
   genre: string;
   year: number;
   rating: number;
-  posterUrl: string;
+  posterUrl:string;
 };
 
 export type UserProfile = {

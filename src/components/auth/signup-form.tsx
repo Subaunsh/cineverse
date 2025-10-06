@@ -1,3 +1,4 @@
+
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,7 +11,8 @@ import {
   signInWithPopup,
   updateProfile,
 } from "firebase/auth";
-import { auth, googleProvider } from "@/lib/firebase";
+import { auth, googleProvider, db } from "@/lib/firebase";
+import { setDoc, doc, getDoc } from "firebase/firestore";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -43,6 +45,18 @@ const formSchema = z.object({
   }),
 });
 
+async function upsertUser(user: any) {
+  const userDocRef = doc(db, "users", user.uid);
+  const userDoc = await getDoc(userDocRef);
+  if (!userDoc.exists()) {
+    await setDoc(userDocRef, {
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+    }, { merge: true });
+  }
+}
+
 export function SignupForm() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -68,6 +82,7 @@ export function SignupForm() {
       await updateProfile(userCredential.user, {
         displayName: values.displayName,
       });
+      await upsertUser({ ...userCredential.user, displayName: values.displayName });
       toast({ title: "Account created successfully!" });
       router.push("/");
     } catch (error: any) {
@@ -84,7 +99,8 @@ export function SignupForm() {
   async function handleGoogleSignIn() {
     setIsLoading(true);
     try {
-      await signInWithPopup(auth, googleProvider);
+      const userCredential = await signInWithPopup(auth, googleProvider);
+      await upsertUser(userCredential.user);
       toast({ title: "Account created successfully!" });
       router.push("/");
     } catch (error: any) {
