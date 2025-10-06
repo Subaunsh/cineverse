@@ -34,7 +34,7 @@ export function MovieCarousel({ title, movies }: MovieCarouselProps) {
           {movies.map((movie, index) => (
             <CarouselItem
               key={`${movie.id}-${index}`}
-              className="pl-4 basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6 xl:basis-1/7"
+              className="pl-4 basis-1/3 sm:basis-1/4 md:basis-1/5"
             >
               <MovieCard movie={movie} />
             </CarouselItem>
