@@ -1,19 +1,29 @@
 
+'use client'
+
 import { Header } from "@/components/layout/header";
 import { MovieCard } from "@/components/movie-card";
 import { allMovies } from "@/lib/movies";
 import { cn } from "@/lib/utils";
-import { auth, db } from "@/lib/firebase-server";
+import { useAuth } from "@/hooks/use-auth";
 import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+import { useEffect, useState } from "react";
 
-export default async function MoviesPage() {
-    const user = auth.currentUser;
-    let watchlistIds: string[] = [];
-    if (user) {
-        const userDocRef = doc(db, "users", user.uid);
-        const userDoc = await getDoc(userDocRef);
-        watchlistIds = userDoc.exists() ? userDoc.data()?.watchlist || [] : [];
-    }
+export default function MoviesPage() {
+    const { user } = useAuth();
+    const [watchlistIds, setWatchlistIds] = useState<string[]>([]);
+
+    useEffect(() => {
+        const fetchWatchlist = async () => {
+            if (user) {
+                const userDocRef = doc(db, "users", user.uid);
+                const userDoc = await getDoc(userDocRef);
+                setWatchlistIds(userDoc.exists() ? userDoc.data()?.watchlist || [] : []);
+            }
+        };
+        fetchWatchlist();
+    }, [user]);
 
     return (
         <div className="flex flex-col min-h-screen bg-background">

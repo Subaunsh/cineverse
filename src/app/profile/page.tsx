@@ -1,25 +1,38 @@
 
+'use client';
+
 import { MovieCarousel } from "@/components/movie-carousel";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { allMovies } from "@/lib/movies";
+import { allMovies, getMovieById } from "@/lib/movies";
 import { cn } from "@/lib/utils";
 import { Header } from "@/components/layout/header";
-import { auth } from "@/lib/firebase-server";
+import { useAuth } from "@/hooks/use-auth";
 import { redirect } from "next/navigation";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase-server";
-import { getMovieById } from "@/lib/movies";
+import { db } from "@/lib/firebase";
+import { useEffect, useState } from "react";
 
-export default async function ProfilePage() {
-    const user = auth.currentUser;
+export default function ProfilePage() {
+    const { user } = useAuth();
+    const [watchlistIds, setWatchlistIds] = useState<string[]>([]);
 
-    if (!user) {
-        redirect('/login');
-    }
+    useEffect(() => {
+        if (!user) {
+            redirect('/login');
+        }
+        const fetchWatchlist = async () => {
+            if (user) {
+                const userDocRef = doc(db, "users", user.uid);
+                const userDoc = await getDoc(userDocRef);
+                setWatchlistIds(userDoc.exists() ? userDoc.data()?.watchlist || [] : []);
+            }
+        };
+        fetchWatchlist();
+    }, [user]);
     
-    const userDocRef = doc(db, "users", user.uid);
-    const userDoc = await getDoc(userDocRef);
-    const watchlistIds = userDoc.exists() ? userDoc.data()?.watchlist || [] : [];
+    if (!user) {
+        return null;
+    }
     
     const userWatchlist = watchlistIds.map((id: string) => getMovieById(id)).filter(Boolean);
     const userHistory = allMovies.slice(5, 10); // Mock history
@@ -43,7 +56,7 @@ export default async function ProfilePage() {
 
                     <div className="space-y-12">
                         {userWatchlist.length > 0 ? (
-                           <MovieCarousel title="My Watchlist" movies={userWatchlist} />
+                           <MovieCarousel title="My Watchlist" movies={userWatchlist as any[]} />
                         ) : (
                             <div>
                                 <h2 className={cn('font-headline text-3xl md:text-4xl font-bold mb-6 text-white')}>My Watchlist</h2>
