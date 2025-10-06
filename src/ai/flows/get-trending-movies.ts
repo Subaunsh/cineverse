@@ -9,6 +9,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import { allMovies } from '@/lib/movies';
 
 const TrendingMoviesOutputSchema = z.object({
   movies: z.array(
@@ -48,7 +49,15 @@ const trendingMoviesFlow = ai.defineFlow(
     outputSchema: TrendingMoviesOutputSchema,
   },
   async () => {
-    const {output} = await prompt();
-    return output!;
+    try {
+      const {output} = await prompt();
+      if (!output?.movies) {
+        throw new Error('No movies in output');
+      }
+      return output;
+    } catch (error) {
+      console.error('AI trending movies flow failed, returning static data:', error);
+      return { movies: allMovies.slice(0, 10) };
+    }
   }
 );
