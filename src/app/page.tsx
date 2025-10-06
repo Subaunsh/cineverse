@@ -1,15 +1,15 @@
 import { MovieCarousel } from '@/components/movie-carousel';
 import { getMoviesByGenre } from '@/lib/movies';
-import { Separator } from '@/components/ui/separator';
 import { getTrendingMovies as getAITrendingMovies } from '@/ai/flows/get-trending-movies';
 import { allMovies } from '@/lib/movies';
-import { SearchDialog } from '@/components/search-dialog';
-import { UserNav } from '@/components/user-nav';
+import { HeroSection } from '@/components/hero-section';
+import { Header } from '@/components/layout/header';
 
 export default async function Home() {
   const trendingMoviesResult = await getAITrendingMovies();
   const trendingMovies = trendingMoviesResult.movies || allMovies.slice(0, 10);
-  
+  const heroMovie = trendingMovies[0];
+
   const actionMovies = getMoviesByGenre('Action', 10);
   const comedyMovies = getMoviesByGenre('Comedy', 10);
   const scifiMovies = getMoviesByGenre('Sci-Fi', 10);
@@ -18,17 +18,13 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      <header className="sticky top-0 z-50 w-full">
-        <div className="container flex h-20 max-w-screen-2xl items-center justify-end">
-          <div className="flex flex-1 items-center justify-end space-x-2 sm:space-x-4">
-            <SearchDialog />
-            <UserNav />
-          </div>
-        </div>
-      </header>
+      <Header />
       <main className="flex-1">
-        <div className="container pb-20 mt-8 md:mt-12 space-y-16">
-          {trendingMovies.length > 0 && <MovieCarousel title="Trending Now" movies={trendingMovies} />}
+        {heroMovie && <HeroSection movie={heroMovie} />}
+        <div className="container pb-20 space-y-12 relative z-10">
+          {trendingMovies.length > 1 && (
+            <MovieCarousel title="Trending Now" movies={trendingMovies.slice(1)} />
+          )}
           <MovieCarousel title="Action & Adventure" movies={actionMovies} />
           <MovieCarousel title="Sci-Fi Thrillers" movies={scifiMovies} />
           <MovieCarousel title="Comedies" movies={comedyMovies} />
@@ -36,13 +32,8 @@ export default async function Home() {
           <MovieCarousel title="Dramas" movies={dramaMovies} />
         </div>
       </main>
-      <footer className="container py-8">
-        <div className="flex justify-center items-center">
-            <Separator className="bg-border" />
-        </div>
-        <p className="text-center text-sm text-muted-foreground mt-8">
-            CineVerse &copy; {new Date().getFullYear()}. All Rights Reserved.
-        </p>
+      <footer className="container py-8 text-center text-muted-foreground">
+        CineVerse &copy; {new Date().getFullYear()}. All Rights Reserved.
       </footer>
     </div>
   );

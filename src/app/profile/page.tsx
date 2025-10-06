@@ -1,13 +1,9 @@
-// This is a placeholder for the profile page.
-// In a real application, this would be a protected route
-// that fetches and displays the user's data from Firestore.
 
 import { MovieCarousel } from "@/components/movie-carousel";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { getTrendingMovies, getMoviesByGenre } from "@/lib/movies";
 import { cn } from "@/lib/utils";
-import { UserNav } from "@/components/user-nav";
-import { SearchDialog } from "@/components/search-dialog";
+import { Header } from "@/components/layout/header";
 
 export default function ProfilePage() {
     // In a real app, you would fetch the user's actual watchlist and history
@@ -24,14 +20,7 @@ export default function ProfilePage() {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <header className="sticky top-0 z-50 w-full">
-              <div className="container flex h-20 max-w-screen-2xl items-center justify-end">
-                <div className="flex flex-1 items-center justify-end space-x-2 sm:space-x-4">
-                  <SearchDialog />
-                  <UserNav />
-                </div>
-              </div>
-            </header>
+            <Header />
             <main className="flex-1 py-8 md:py-12">
                 <div className="container">
                     <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8 mb-12">
