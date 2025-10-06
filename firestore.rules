@@ -1,0 +1,131 @@
+/**
+ * @fileoverview Firestore Security Rules for CineVerse application.
+ *
+ * Core Philosophy:
+ * This ruleset enforces a strict user-ownership model for private user data
+ * (watchlists, ratings, history) nested under `/users/{userId}`. Movies are
+ * publicly accessible.
+ *
+ * Data Structure:
+ * - /users/{userId}: User profile information (owner-only access).
+ * - /movies/{movieId}: Public movie data (read-only for all).
+ * - /users/{userId}/watchlists/{watchlistId}: User's watchlists (owner-only).
+ * - /users/{userId}/ratings/{ratingId}: User's movie ratings (owner-only).
+ * - /users/{userId}/history/{historyId}: User's movie watching history (owner-only).
+ *
+ * Key Security Decisions:
+ * - Users can only access their own data under the `/users/{userId}` path.
+ * - Movies are publicly readable.
+ * - User listing is disallowed for privacy.
+ * - Data validation is minimal in this prototyping phase, focusing on ownership.
+ *
+ * Denormalization for Authorization:
+ * - The `Watchlist` entity includes a denormalized `userId` field. This allows
+ *   rules to validate ownership without additional `get()` calls. The rule enforces
+ *   that `request.auth.uid` must match the `userId` in the document.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Controls access to user profile information.
+     * @path /users/{userId}
+     * @allow (create) User with matching ID can create their profile.
+     * @allow (get, update, delete) User with matching ID can read, update, and delete their profile.
+     * @deny (create, get, update, delete) Any other user cannot access this data.
+     * @principle Enforces document ownership for all operations.
+     */
+    match /users/{userId} {
+      function isOwner(userId) {
+        return request.auth != null && request.auth.uid == userId;
+      }
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Controls access to movie data. Movies are publicly readable.
+     * @path /movies/{movieId}
+     * @allow (get, list) Anyone can read movie data.
+     * @deny (create, update, delete) Only administrators can create, update, and delete movies.
+     * @principle Movies are public and immutable for regular users.
+     */
+    match /movies/{movieId} {
+      allow get, list: if true;
+      allow create, update, delete: if false;
+    }
+
+    /**
+     * @description Controls access to user's watchlists.
+     * @path /users/{userId}/watchlists/{watchlistId}
+     * @allow (create) User with matching userId can create a watchlist. The watchlist data must have the same userId
+     * @allow (get, list, update, delete) User with matching userId can access their own watchlists.
+     * @deny (create, get, list, update, delete) Any other user cannot access this data.
+     * @principle Enforces document ownership for all operations on watchlists.
+     */
+    match /users/{userId}/watchlists/{watchlistId} {
+      function isOwner(userId) {
+        return request.auth != null && request.auth.uid == userId;
+      }
+        function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.userId == userId;
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Controls access to user's movie ratings.
+     * @path /users/{userId}/ratings/{ratingId}
+     * @allow (create) User with matching userId can create a rating.
+     * @allow (get, list, update, delete) User with matching userId can access their own ratings.
+     * @deny (create, get, list, update, delete) Any other user cannot access this data.
+     * @principle Enforces document ownership for all operations on ratings.
+     */
+    match /users/{userId}/ratings/{ratingId} {
+      function isOwner(userId) {
+        return request.auth != null && request.auth.uid == userId;
+      }
+        function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Controls access to user's movie watching history.
+     * @path /users/{userId}/history/{historyId}
+     * @allow (create) User with matching userId can create a history entry.
+     * @allow (get, list, update, delete) User with matching userId can access their own history.
+     * @deny (create, get, list, update, delete) Any other user cannot access this data.
+     * @principle Enforces document ownership for all operations on user history.
+     */
+    match /users/{userId}/history/{historyId} {
+      function isOwner(userId) {
+        return request.auth != null && request.auth.uid == userId;
+      }
+        function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+  }
+}

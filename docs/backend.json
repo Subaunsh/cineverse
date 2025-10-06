@@ -1,0 +1,281 @@
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user in the CineVerse application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the User entity."
+        },
+        "email": {
+          "type": "string",
+          "description": "User's email address.",
+          "format": "email"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User's display name."
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "URL of the user's profile picture.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "email"
+      ]
+    },
+    "Movie": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Movie",
+      "type": "object",
+      "description": "Represents a movie in the CineVerse application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Movie entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the movie."
+        },
+        "genre": {
+          "type": "array",
+          "description": "List of genres the movie belongs to.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rating": {
+          "type": "number",
+          "description": "Movie rating (e.g., out of 5 or 10)."
+        },
+        "year": {
+          "type": "number",
+          "description": "Year the movie was released."
+        },
+        "description": {
+          "type": "string",
+          "description": "Short description or synopsis of the movie."
+        },
+        "posterURL": {
+          "type": "string",
+          "description": "URL of the movie poster image.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "genre",
+        "rating",
+        "year",
+        "description",
+        "posterURL"
+      ]
+    },
+    "Watchlist": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Watchlist",
+      "type": "object",
+      "description": "Represents a user's watchlist, containing references to movies they want to watch.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Watchlist entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N Watchlist)"
+        },
+        "movieIds": {
+          "type": "array",
+          "description": "References to Movies. (Relationship: Watchlist 1:N Movie)",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "movieIds"
+      ]
+    },
+    "Rating": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Rating",
+      "type": "object",
+      "description": "Represents a user's rating for a movie.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Rating entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N Rating)"
+        },
+        "movieId": {
+          "type": "string",
+          "description": "Reference to Movie. (Relationship: Movie 1:N Rating)"
+        },
+        "ratingValue": {
+          "type": "number",
+          "description": "The rating value given by the user (e.g., 1-5)."
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Timestamp of when the rating was given.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "movieId",
+        "ratingValue",
+        "timestamp"
+      ]
+    },
+    "UserHistory": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserHistory",
+      "type": "object",
+      "description": "Represents a user's movie watching history.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the UserHistory entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N UserHistory)"
+        },
+        "movieId": {
+          "type": "string",
+          "description": "Reference to Movie. (Relationship: Movie 1:N UserHistory)"
+        },
+        "watchTimestamp": {
+          "type": "string",
+          "description": "Timestamp of when the user watched the movie.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "movieId",
+        "watchTimestamp"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profile information. The 'userId' parameter identifies the user's document.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/movies/{movieId}",
+        "definition": {
+          "entityName": "Movie",
+          "schema": {
+            "$ref": "#/backend/entities/Movie"
+          },
+          "description": "Stores movie data. The 'movieId' parameter identifies the movie's document.",
+          "params": [
+            {
+              "name": "movieId",
+              "description": "The unique identifier of the movie."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/watchlists/{watchlistId}",
+        "definition": {
+          "entityName": "Watchlist",
+          "schema": {
+            "$ref": "#/backend/entities/Watchlist"
+          },
+          "description": "Stores user's watchlists.  Authorization Independence: Includes denormalized 'userId' for simpler security rules.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "watchlistId",
+              "description": "The unique identifier of the user's watchlist."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/ratings/{ratingId}",
+        "definition": {
+          "entityName": "Rating",
+          "schema": {
+            "$ref": "#/backend/entities/Rating"
+          },
+          "description": "Stores user's movie ratings. Path-based ownership.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "ratingId",
+              "description": "The unique identifier of the user's rating."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/history/{historyId}",
+        "definition": {
+          "entityName": "UserHistory",
+          "schema": {
+            "$ref": "#/backend/entities/UserHistory"
+          },
+          "description": "Stores user's movie watching history. Path-based ownership.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "historyId",
+              "description": "The unique identifier of the user's history entry."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to be secure, scalable, and debuggable, adhering to the principles of Authorization Independence, Clarity of Intent, DBAC (Database-Based Access Control), and QAPs (Rules are not Filters).  Authorization Independence is achieved by denormalizing the user ID into the `watchlists` collection, eliminating the need for `get()` calls in security rules. Segregation is used to isolate user-specific data.  Path-based ownership (`/users/{userId}/...`) is used for private user data like watchlists.  The use of explicit IDs generated client-side ensures predictable data structures. This design supports secure `list` operations and ensures the integrity of ownership and timestamps."
+  }
+}
