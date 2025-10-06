@@ -8,6 +8,16 @@ export type Movie = {
   posterUrl: string;
 };
 
+export type TVShow = {
+  id: string;
+  title: string;
+  description: string;
+  genre: string;
+  year: number;
+  rating: number;
+  posterUrl: string;
+};
+
 export type UserProfile = {
   uid: string;
   email: string | null;

@@ -74,6 +74,36 @@
       "id": "get-out",
       "imageUrl": "https://images.unsplash.com/photo-1506443432943-ac3343904269?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzY2FyeSUyMGV5ZXN8ZW58MHx8fHwxNzU5NTM0MzExfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "scary eyes"
+    },
+    {
+      "id": "stranger-things",
+      "imageUrl": "https://images.unsplash.com/photo-1622227876032-3bf591734f0a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHw4MHMlMjBub3N0YWxnaWF8ZW58MHx8fHwxNzU5NzE3NjEyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "80s nostalgia"
+    },
+    {
+      "id": "the-crown",
+      "imageUrl": "https://images.unsplash.com/photo-1616900605054-e1ce5d936cb7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyb3lhbCUyMGRyYW1hfGVufDB8fHx8MTc1OTc2NzEzNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "royal drama"
+    },
+    {
+      "id": "black-mirror",
+      "imageUrl": "https://images.unsplash.com/photo-1637433926957-e4180727bb83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZHlzdG9waWFuJTIwZnV0dXJlfGVufDB8fHx8MTc1OTcyNjM5MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dystopian future"
+    },
+    {
+      "id": "breaking-bad",
+      "imageUrl": "https://images.unsplash.com/photo-1631204334956-6dc7438e701c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjcmltZSUyMHRocmlsbGVyfGVufDB8fHx8MTc1OTY2NjEwMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "crime thriller"
+    },
+    {
+      "id": "game-of-thrones",
+      "imageUrl": "https://images.unsplash.com/photo-1737394765662-4f8caaf27760?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZmFudGFzeSUyMGVwaWN8ZW58MHx8fHwxNzU5NzY3MTM1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fantasy epic"
+    },
+    {
+      "id": "the-mandalorian",
+      "imageUrl": "https://images.unsplash.com/photo-1694240347537-aebd12f85446?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzcGFjZSUyMHdlc3Rlcm58ZW58MHx8fHwxNzU5NzY3MTM1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "space western"
     }
   ]
 }
