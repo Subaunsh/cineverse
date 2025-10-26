@@ -1,4 +1,4 @@
-# Firebase Studio
+# Cine Verse
 
 This is a NextJS starter in Firebase Studio.
 
